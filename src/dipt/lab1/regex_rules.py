@@ -3,11 +3,13 @@
 Каждое правило возвращает кандидатов (label, start, end, valid, priority).
 `start`/`end` — индексы в исходном тексте (end — эксклюзивный).
 """
+
 import re
 from typing import List, Tuple
 
 
 # -------------------- Валидаторы контрольных разрядов --------------------
+
 
 def validate_inn(value: str) -> bool:
     d = re.sub(r"\D", "", value)
@@ -84,9 +86,9 @@ EMAIL_RE = re.compile(
 BANK_CARD_RE = re.compile(
     r"(?<!\w)"
     r"(?P<v>"
-    r"\d{4}[ \-]?\d{4}[ \-]?\d{4}[ \-]?\d{4,7}"     # 16–19: 4-4-4-4..7
-    r"|\d{4}[ \-]?\d{6}[ \-]?\d{5}"                # 15: 4-6-5 (Amex)
-    r"|\d{4}[ \-]?\d{6}[ \-]?\d{4}"                # 14: 4-6-4 (Diners)
+    r"\d{4}[ \-]?\d{4}[ \-]?\d{4}[ \-]?\d{4,7}"  # 16–19: 4-4-4-4..7
+    r"|\d{4}[ \-]?\d{6}[ \-]?\d{5}"  # 15: 4-6-5 (Amex)
+    r"|\d{4}[ \-]?\d{6}[ \-]?\d{4}"  # 14: 4-6-4 (Diners)
     r")"
     r"(?!\w)"
 )
@@ -122,12 +124,12 @@ PASSPORT_RE = re.compile(
 
 # (label, pattern, validator, priority — меньше = важнее при пересечении)
 RULES = [
-    ("EMAIL",     EMAIL_RE,     None,              0),
-    ("BANK_CARD", BANK_CARD_RE, validate_luhn,     1),
-    ("SNILS",     SNILS_RE,     validate_snils,    2),
-    ("INN",       INN_RE,       validate_inn,      3),
-    ("PHONE",     PHONE_RE,     validate_phone,    4),
-    ("PASSPORT",  PASSPORT_RE,  validate_passport, 5),
+    ("EMAIL", EMAIL_RE, None, 0),
+    ("BANK_CARD", BANK_CARD_RE, validate_luhn, 1),
+    ("SNILS", SNILS_RE, validate_snils, 2),
+    ("INN", INN_RE, validate_inn, 3),
+    ("PHONE", PHONE_RE, validate_phone, 4),
+    ("PASSPORT", PASSPORT_RE, validate_passport, 5),
 ]
 
 

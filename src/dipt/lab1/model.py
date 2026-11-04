@@ -8,4 +8,5 @@ model = AutoModelForTokenClassification.from_pretrained(
     num_labels=len(label_names),
     id2label=id2label,
     label2id=label2id,
-    ignore_mismatched_sizes=True).to(device)
+    ignore_mismatched_sizes=True,
+).to(device)

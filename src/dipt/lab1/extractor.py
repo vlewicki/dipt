@@ -6,6 +6,7 @@
      на этом участке остаётся результат модели (или O, если модель ничего не нашла).
   3. Пересечения между регулярками разрешаются по приоритету (см. RULES).
 """
+
 from typing import List
 
 from dipt.lab1.regex_rules import find_regex_matches
@@ -45,5 +46,3 @@ class PIIExtractor:
         merged = regex_spans + model_spans
         merged.sort(key=lambda x: x[1])
         return [[label, s, e] for label, s, e in merged]
-
-

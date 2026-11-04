@@ -32,7 +32,9 @@ result = {
 }
 for rec in tqdm(records):
     labels = []
-    tokenized_inputs: BatchEncoding = tokenizer(rec.text, truncation=True, max_length=max_tok_len)
+    tokenized_inputs: BatchEncoding = tokenizer(
+        rec.text, truncation=True, max_length=max_tok_len
+    )
     enc = tokenized_inputs.encodings[0]
     offsets = enc.offsets
     word_ids = enc.word_ids
@@ -42,7 +44,7 @@ for rec in tqdm(records):
         if word_ids[i] is None:
             labels.append(-100)
             temp_tags.append("O")
-        elif i > 0 and word_ids[i-1] == word_ids[i]:
+        elif i > 0 and word_ids[i - 1] == word_ids[i]:
             labels.append(-100)
             offset = offsets[i]
             flg = False
@@ -50,7 +52,10 @@ for rec in tqdm(records):
                 if flg:
                     break
                 for span in obj.spans:
-                    if span.start <= offset[0] < span.stop or span.start < offset[1] <= span.stop:
+                    if (
+                        span.start <= offset[0] < span.stop
+                        or span.start < offset[1] <= span.stop
+                    ):
                         temp_tags.append(span.type)
                         flg = True
                         break
@@ -63,8 +68,10 @@ for rec in tqdm(records):
                 if flg:
                     break
                 for span in obj.spans:
-
-                    if span.start <= offset[0] < span.stop or span.start < offset[1] <= span.stop:
+                    if (
+                        span.start <= offset[0] < span.stop
+                        or span.start < offset[1] <= span.stop
+                    ):
                         if span.type == temp_tags[-1]:
                             prefix = "I-"
                         else:
@@ -77,10 +84,9 @@ for rec in tqdm(records):
             if not flg:
                 labels.append(0)
                 temp_tags.append("O")
-    result['input_ids'].append(tokenized_inputs['input_ids'])
-    result['token_type_ids'].append(tokenized_inputs['token_type_ids'])
-    result['attention_mask'].append(tokenized_inputs['attention_mask'])
-    result['labels'].append(labels)
+    result["input_ids"].append(tokenized_inputs["input_ids"])
+    result["token_type_ids"].append(tokenized_inputs["token_type_ids"])
+    result["attention_mask"].append(tokenized_inputs["attention_mask"])
+    result["labels"].append(labels)
     # if len(labels) != len(offsets) or len(temp_tags) != len(offsets):
     #     break
-

@@ -3,6 +3,7 @@
 Каждый пример: {"text": str, "entities": [[label, start, end], ...]}
 Разметка совместима с выходом PIIExtractor.
 """
+
 import random
 from typing import Dict, List, Tuple
 
@@ -20,6 +21,7 @@ fake = Faker("ru_RU")
 Faker.seed(42)  # воспроизводимость
 
 # -------------------- Генераторы валидных значений --------------------
+
 
 def gen_name() -> str:
     return fake.first_name()
@@ -144,9 +146,7 @@ def generate_dataset(
     counts = {label: 0 for label in GENERATORS}
 
     # Генерируем, пока все атрибуты не наберут минимум
-    while len(samples) < num_texts or any(
-        c < min_per_entity for c in counts.values()
-    ):
+    while len(samples) < num_texts or any(c < min_per_entity for c in counts.values()):
         template = random.choice(TEMPLATES)
         text, entities = _fill_template(template)
         samples.append({"text": text, "entities": entities})

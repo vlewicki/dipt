@@ -7,3 +7,9 @@ Laptop setup:
 uv pip install --index=https://download.pytorch.org/whl/cpu torch torchvision
 uv pip install "transformers[torch]"
 ```
+
+
+Running:
+```
+uv run lab1 # PII extraction
+```

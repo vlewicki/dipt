@@ -1,4 +1,5 @@
 """Обёртка над обученной NER-моделью: текст -> [(label, start, end), ...]."""
+
 from typing import List, Tuple
 
 import torch
@@ -10,8 +11,14 @@ from dipt.lab1.trycorus import id2label
 
 class ModelNER:
     def __init__(self, model_path: str = "./res_model_base", device: str | None = None):
-        self.device = torch.device(device or ("cuda" if torch.cuda.is_available() else "cpu"))
-        self.model = AutoModelForTokenClassification.from_pretrained(model_path).to(self.device).eval()
+        self.device = torch.device(
+            device or ("cuda" if torch.cuda.is_available() else "cpu")
+        )
+        self.model = (
+            AutoModelForTokenClassification.from_pretrained(model_path)
+            .to(self.device)
+            .eval()
+        )
         self.tokenizer = tokenizer
 
     def predict(self, text: str) -> List[Tuple[str, int, int]]:

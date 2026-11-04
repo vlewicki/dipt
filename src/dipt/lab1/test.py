@@ -35,7 +35,7 @@ def spans_to_token_labels(text, spans, max_length=512):
 
         tag = "O"
         for label, ss, se in spans:
-            if s < se and e > ss:                      # токен пересекает спан
+            if s < se and e > ss:  # токен пересекает спан
                 prefix = "B-" if ss >= s else "I-"
                 tag = prefix + label
                 break
@@ -77,7 +77,7 @@ def evaluate(num_texts=300, min_per_entity=50, seed=42, max_length=512):
         pred_tags = spans_to_token_labels(text, pred_spans, max_length)
 
         for gt, pt in zip(gold_tags, pred_tags):
-            if gt is None:          # спецтокен / subword — не оцениваем
+            if gt is None:  # спецтокен / subword — не оцениваем
                 continue
             y_true.append(rm_bi(gt))
             y_pred.append(rm_bi(pt))
@@ -96,15 +96,25 @@ def evaluate(num_texts=300, min_per_entity=50, seed=42, max_length=512):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Оценка PIIExtractor на синтетике")
-    parser.add_argument("--num-texts", type=int, default=300,
-                        help="Число тестовых текстов (по умолчанию 300)")
-    parser.add_argument("--min-per-entity", type=int, default=50,
-                        help="Минимум текстов на каждый атрибут ПДн (по умолчанию 50)")
+    parser.add_argument(
+        "--num-texts",
+        type=int,
+        default=300,
+        help="Число тестовых текстов (по умолчанию 300)",
+    )
+    parser.add_argument(
+        "--min-per-entity",
+        type=int,
+        default=50,
+        help="Минимум текстов на каждый атрибут ПДн (по умолчанию 50)",
+    )
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
-    print(evaluate(
-        num_texts=args.num_texts,
-        min_per_entity=args.min_per_entity,
-        seed=args.seed,
-    ))
+    print(
+        evaluate(
+            num_texts=args.num_texts,
+            min_per_entity=args.min_per_entity,
+            seed=args.seed,
+        )
+    )

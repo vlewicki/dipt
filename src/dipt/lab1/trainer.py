@@ -8,14 +8,23 @@ from dipt.lab1.dataset import dsd
 from dipt.lab1.tokenizer import tokenizer
 from dipt.lab1.trycorus import id2label
 
+
 def compute_metrics(p):
     predictions, labels = p
     predictions = np.argmax(predictions, axis=-1)
 
-    y_true = [[id2label[l] for l, p in zip(label, pred) if l != -100] for label, pred in zip(labels, predictions)]
-    y_pred = [[id2label[p] for l, p in zip(label, pred) if l != -100] for label, pred in zip(labels, predictions)]
+    y_true = [
+        [id2label[l] for l, p in zip(label, pred) if l != -100]
+        for label, pred in zip(labels, predictions)
+    ]
+    y_pred = [
+        [id2label[p] for l, p in zip(label, pred) if l != -100]
+        for label, pred in zip(labels, predictions)
+    ]
 
-    res = classification_report(y_true=y_true, y_pred=y_pred, scheme=IOB2, output_dict=True)["weighted avg"]
+    res = classification_report(
+        y_true=y_true, y_pred=y_pred, scheme=IOB2, output_dict=True
+    )["weighted avg"]
     res.pop("support", None)
     return res
 
@@ -46,6 +55,7 @@ trainer = Trainer(
     data_collator=data_collator,
     compute_metrics=compute_metrics,
 )
+
 
 def train():
     trainer.train()
