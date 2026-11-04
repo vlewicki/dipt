@@ -7,10 +7,20 @@ authors = [
     { name = "Valentin Lewicki", email = "vlewicki@vlewicki.ru" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "corus>=0.10.0",
+    "datasets>=5.1.0",
+    "faker>=40.43.0",
+    "ipython>=9.17.1",
+    "legacy-cgi>=2.6.4",
+    "seqeval>=1.2.2",
+    "transformers>=5.19.0",
+]
+
 
 [project.scripts]
-dipt = "dipt:main"
+lab1 = "dipt.lab1:main"
+lab2 = "dipt.lab2:main"
 
 [build-system]
 requires = ["uv_build>=0.13.6,<0.14.0"]

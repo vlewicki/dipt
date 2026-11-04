@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Datasets, model weights
+factRuEval-2016-master/
+res_model_base/

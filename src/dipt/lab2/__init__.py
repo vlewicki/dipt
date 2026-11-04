@@ -1,0 +1,1 @@
+from dipt.lab2.main import main
