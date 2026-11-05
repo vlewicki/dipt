@@ -13,6 +13,7 @@ dependencies = [
     "faker>=40.43.0",
     "ipython>=9.17.1",
     "legacy-cgi>=2.6.4",
+    "pymorphy3>=2.0.6",
     "seqeval>=1.2.2",
     "transformers>=5.19.0",
 ]
