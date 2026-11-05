@@ -1,7 +1,8 @@
 from tqdm import tqdm
 from corus import load_factru
-from dipt.lab1.tokenizer import tokenizer
 from transformers import BatchEncoding
+from dipt.lab1.tokenizer import tokenizer
+from dipt.lab1.labels import PIILabel
 
 max_tok_len = 512
 records = list(load_factru("factRuEval-2016-master"))
@@ -15,7 +16,8 @@ for rec in records:
 types = sorted(set(types))
 print(types)
 
-types = ["SURNAME", "NAME", "PATRONYMIC"]
+types = [PIILabel.SURNAME, PIILabel.NAME, PIILabel.PATRONYMIC]
+
 label_names = ["O"]
 for t in types:
     label_names.append("B-" + t)

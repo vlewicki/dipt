@@ -9,13 +9,14 @@ from typing import Dict, List, Tuple
 
 from faker import Faker
 
-from regex_rules import (
+from dipt.lab1.regex_rules import (
     validate_inn,
     validate_luhn,
     validate_passport,
     validate_phone,
     validate_snils,
 )
+from dipt.lab1.labels import PIILabel
 
 fake = Faker("ru_RU")
 Faker.seed(42)  # воспроизводимость
@@ -81,15 +82,15 @@ def gen_passport() -> str:
 
 
 GENERATORS = {
-    "NAME": gen_name,
-    "SURNAME": gen_surname,
-    "PATRONYMIC": gen_patronymic,
-    "EMAIL": gen_email,
-    "PHONE": gen_phone,
-    "BANK_CARD": gen_bank_card,
-    "INN": gen_inn,
-    "SNILS": gen_snils,
-    "PASSPORT": gen_passport,
+    PIILabels.NAME: gen_name,
+    PIILabels.SURNAME: gen_surname,
+    PIILabels.PATRONYMIC: gen_patronymic,
+    PIILabels.EMAIL: gen_email,
+    PIILabels.PHONE: gen_phone,
+    PIILabels.BANK_CARD: gen_bank_card,
+    PIILabels.INN: gen_inn,
+    PIILabels.SNILS: gen_snils,
+    PIILabels.PASSPORT: gen_passport,
 }
 
 # -------------------- Шаблоны предложений --------------------

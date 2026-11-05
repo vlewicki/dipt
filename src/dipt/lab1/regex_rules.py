@@ -6,7 +6,7 @@
 
 import re
 from typing import List, Tuple
-
+from dipt.lab1.labels import PIILabel
 
 # -------------------- Валидаторы контрольных разрядов --------------------
 
@@ -124,12 +124,12 @@ PASSPORT_RE = re.compile(
 
 # (label, pattern, validator, priority — меньше = важнее при пересечении)
 RULES = [
-    ("EMAIL", EMAIL_RE, None, 0),
-    ("BANK_CARD", BANK_CARD_RE, validate_luhn, 1),
-    ("SNILS", SNILS_RE, validate_snils, 2),
-    ("INN", INN_RE, validate_inn, 3),
-    ("PHONE", PHONE_RE, validate_phone, 4),
-    ("PASSPORT", PASSPORT_RE, validate_passport, 5),
+    (PIILabel.EMAIL, EMAIL_RE, None, 0),
+    (PIILabel.BANK_CARD, BANK_CARD_RE, validate_luhn, 1),
+    (PIILabel.SNILS, SNILS_RE, validate_snils, 2),
+    (PIILabel.INN, INN_RE, validate_inn, 3),
+    (PIILabel.PHONE, PHONE_RE, validate_phone, 4),
+    (PIILabel.PASSPORT, PASSPORT_RE, validate_passport, 5),
 ]
 
 
